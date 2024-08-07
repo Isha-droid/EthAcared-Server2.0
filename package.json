@@ -1,0 +1,9 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "hardhat": "^2.22.8"
+  },
+  "dependencies": {
+    "web3": "^4.11.1"
+  }
+}
