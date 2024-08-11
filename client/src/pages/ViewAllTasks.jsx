@@ -1,45 +1,52 @@
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import Navigation from "../components/Navigation";
-const ViewAllTasks =()=>{
-    const [taskList,setTaskList]=useState([])
 
-    useEffect(()=>{
-      const allTasks = async()=>{
-        try{
-            const res = await fetch("http://localhost:3000/api/ethereum/view-all-task",{
-                method:"GET",
-                headers:{
-                    "Accept":"application/json"
+const ViewAllStudents = () => {
+    const [studentList, setStudentList] = useState([]);
+
+    useEffect(() => {
+        const fetchAllStudents = async () => {
+            try {
+                const res = await fetch("http://localhost:3000/api/ethereum/view-all-students", {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
+                const data = await res.json();
+                if (data.status === 200) {
+                    console.log(data.studentList);
+                    setStudentList(data.studentList);
                 }
-            })
-            const data = await res.json();
-            if(data.status===200){
-                console.log(data.taskList)
-                setTaskList(data.taskList)
+            } catch (error) {
+                console.error(error);
             }
-        }catch(error){
-            console.error(error)
-        }
-      }
-      allTasks();
-    },[])
-    return<>
-      <Navigation/>
-      <div className="view_all_tasks">
-      {taskList.map((task)=>{
-        return(
-            <div 
-            className="view_all_tasks_card"
-            key={task.id}
-            style={task.id!=="" && task.name!=="" && task.date!=="" ? {} : {display:"none"}}
-            >   
-                <p>{task.taskId}</p>
-                <p>{task.name}</p>
-                <p>{task.date}</p>
+        };
+        fetchAllStudents();
+    }, []);
+
+    return (
+        <>
+            <Navigation />
+            <div className="view_all_students">
+                {studentList.map((student) => {
+                    return (
+                        <div 
+                            className="view_all_students_card"
+                            key={student.prn}
+                            style={student.prn !== "" && student.name !== "" && student.department !== "" ? {} : { display: "none" }}
+                        >   
+                            <p>PRN: {student.prn}</p>
+                            <p>Name: {student.name}</p>
+                            <p>Department: {student.department}</p>
+                            <p>Marksheet: {student.marksheet}</p>
+                            <p>Phone: {student.phone}</p>
+                        </div>
+                    );
+                })}
             </div>
-        )
-      })}
-      </div>
-    </>
-}
-export default ViewAllTasks;
+        </>
+    );
+};
+
+export default ViewAllStudents;

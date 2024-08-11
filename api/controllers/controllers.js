@@ -3,7 +3,7 @@ const { contract } = require('../contract/contract');
 const {priorityCheck}= require('../model/tasks')
 
 // Initialize Web3 and get accounts
-const web3 = new Web3('http://127.0.0.1:8545'); // or the appropriate provider URL
+const web3 = new Web3('http://127.0.0.1:8545'); 
 let accountAddress = null;
 
 const getAccountAddress = async () => {
@@ -15,7 +15,6 @@ const getAccountAddress = async () => {
     }
 };
 
-// Call this function once to initialize the account address
 getAccountAddress().catch(error => {
     console.error('Error initializing account address:', error);
 });
@@ -27,11 +26,12 @@ const createStudent = async (req, res) => {
         // const task = await dateclashCheck(taskDate);
         // if (task !== "No Task Found") {
         //     res.status(409).json({ status: 409, message: "Date clash: Task cannot be added" });
-        // } else {
+        // } else { 
             await contract.methods.addStudent(name, department, marksheet, phone).send({ from: accountAddress });
             res.status(200).json({ status: 200, message: "Student added successfully" });
         // }
     } catch (error) {
+        console.log(error)
         res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
 };
@@ -70,10 +70,11 @@ const deleteStudent = async (req, res) => {
 
 const viewStudent = async (req, res) => {
     const { prn } = req.params;
+    const pr1=prn
     try {
-        const student = await contract.methods.viewStudent(prn).call();
+        const student = await contract.methods.viewStudent(pr1).call();
         const { prn, name, department, marksheet, phone } = student;
-        res.status(200).json({ status: 200, student: { prn: Number(prn), name, department, marksheet, phone }, message: "Student exists" });
+        res.status(200).json({ status: 200, student: { prn: Number(pr1), name, department, marksheet, phone }, message: "Student exists" });
     } catch (error) {
         res.status(404).json({ status: 404, message: "Student does not exist" });
     }

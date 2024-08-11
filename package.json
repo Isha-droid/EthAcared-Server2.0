@@ -4,6 +4,7 @@
     "hardhat": "^2.22.8"
   },
   "dependencies": {
+    "hardhat-project": "file:",
     "web3": "^4.11.1"
   }
 }
