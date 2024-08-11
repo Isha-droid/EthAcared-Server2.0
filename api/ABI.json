@@ -1,46 +1,5 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_department",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_marksheet",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_phone",
-				"type": "string"
-			}
-		],
-		"name": "addStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_prn",
-				"type": "uint256"
-			}
-		],
-		"name": "deleteStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -111,11 +70,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_prn",
-				"type": "uint256"
-			},
-			{
 				"internalType": "string",
 				"name": "_name",
 				"type": "string"
@@ -136,7 +90,7 @@
 				"type": "string"
 			}
 		],
-		"name": "updateStudent",
+		"name": "addStudent",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -182,6 +136,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_prn",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "studentCount",
 		"outputs": [
@@ -192,6 +159,39 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_prn",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_department",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_marksheet",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_phone",
+				"type": "string"
+			}
+		],
+		"name": "updateStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

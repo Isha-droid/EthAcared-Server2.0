@@ -1,85 +1,109 @@
-const { dateclashCheck, priorityCheck } = require('../model/tasks');
+const {Web3} = require('web3');
 const { contract } = require('../contract/contract');
+const {priorityCheck}= require('../model/tasks')
 
-const createTask = async (req, res) => {
-    const { taskDate } = req.body;
+// Initialize Web3 and get accounts
+const web3 = new Web3('http://127.0.0.1:8545'); // or the appropriate provider URL
+let accountAddress = null;
+
+const getAccountAddress = async () => {
+    const accounts = await web3.eth.getAccounts();
+    if (accounts.length > 0) {
+        accountAddress = accounts[0];
+    } else {
+        throw new Error('No accounts found');
+    }
+};
+
+// Call this function once to initialize the account address
+getAccountAddress().catch(error => {
+    console.error('Error initializing account address:', error);
+});
+
+const createStudent = async (req, res) => {
+    const { name, department, marksheet, phone } = req.body;
     try {
-        const task = await dateclashCheck(taskDate);
-        if (task !== "No Task Found") {
-            res.status(409).json({ status: 409, message: "Date clash: Task cannot be added" });
-        } else {
-            // Logic to create task
-            // Ensure to handle account address and transaction details properly
-            res.status(200).json({ status: 200, message: "Task can be added" });
-        }
+        // Check for date clash if applicable
+        // const task = await dateclashCheck(taskDate);
+        // if (task !== "No Task Found") {
+        //     res.status(409).json({ status: 409, message: "Date clash: Task cannot be added" });
+        // } else {
+            await contract.methods.addStudent(name, department, marksheet, phone).send({ from: accountAddress });
+            res.status(200).json({ status: 200, message: "Student added successfully" });
+        // }
     } catch (error) {
         res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
 };
 
-const updateTask = async (req, res) => {
-    const { taskId, newName, newDate } = req.body;
+const updateStudent = async (req, res) => {
+    const { prn, name, department, marksheet, phone } = req.body;
     try {
-        const task = await dateclashCheck(newDate);
-        if (task !== "No Task Found") {
-            res.status(409).json({ status: 409, message: "Date clash: Task cannot be updated" });
-        } else {
-            await contract.methods.updateTask(taskId, newName, newDate).send({ from: 'yourAccount' });
-            res.status(200).json({ status: 200, message: "Task updated successfully" });
-        }
+        // Check for date clash if applicable
+        // const task = await dateclashCheck(newDate);
+        // if (task !== "No Task Found") {
+        //     res.status(409).json({ status: 409, message: "Date clash: Task cannot be updated" });
+        // } else {
+            await contract.methods.updateStudent(prn, name, department, marksheet, phone).send({ from: accountAddress });
+            res.status(200).json({ status: 200, message: "Student updated successfully" });
+        // }
     } catch (error) {
         res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
 };
 
-const deleteTask = async (req, res) => {
-    const { taskId } = req.params;
+const deleteStudent = async (req, res) => {
+    const { prn } = req.params;
     try {
-        const isTrue = await priorityCheck(taskId);
+        const isTrue = await priorityCheck(prn);
         if (isTrue) {
-            res.status(403).json({ status: 403, message: "Task cannot be deleted" });
+            res.status(403).json({ status: 403, message: "Student cannot be deleted" });
         } else {
-            await contract.methods.deleteTask(taskId).send({ from: 'yourAccount' });
-            res.status(200).json({ status: 200, message: "Task deleted successfully" });
+            await contract.methods.deleteStudent(prn).send({ from: accountAddress });
+            res.status(200).json({ status: 200, message: "Student deleted successfully" });
         }
     } catch (error) {
+        console.error('Error in deleteStudent:', error);
         res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
 };
 
-const viewTask = async (req, res) => {
-    const { taskId } = req.params;
+const viewStudent = async (req, res) => {
+    const { prn } = req.params;
     try {
-        const task = await contract.methods.viewTask(taskId).call();
-        const { id, name, date } = task;
-        res.status(200).json({ status: 200, task: { id: Number(id), name, date }, message: "Task exists" });
+        const student = await contract.methods.viewStudent(prn).call();
+        const { prn, name, department, marksheet, phone } = student;
+        res.status(200).json({ status: 200, student: { prn: Number(prn), name, department, marksheet, phone }, message: "Student exists" });
     } catch (error) {
-        res.status(404).json({ status: 404, message: "Task does not exist" });
+        res.status(404).json({ status: 404, message: "Student does not exist" });
     }
 };
 
-const allTasks = async (req, res) => {
+const allStudents = async (req, res) => {
     try {
-        const tasks = await contract.methods.allTask().call();
-        if (tasks.length === 0) {
-            res.status(404).json({ status: 404, message: "No tasks found" });
+        const students = await contract.methods.allStudents().call();
+        if (students.length === 0) {
+            res.status(404).json({ status: 404, message: "No students found" });
         } else {
-            const taskList = tasks.map(({ id, name, date }) => ({
-                taskId: Number(id),
+            const studentList = students.map(({ prn, name, department, marksheet, phone }) => ({
+                prn: Number(prn),
                 name,
-                date
+                department,
+                marksheet,
+                phone
             }));
-            res.status(200).json({ status: 200, taskList, message: "Tasks retrieved successfully" });
+            res.status(200).json({ status: 200, studentList, message: "Students retrieved successfully" });
         }
     } catch (error) {
+        console.log(error);
         res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
 };
 
 module.exports = {
-    createTask,
-    updateTask,
-    deleteTask,
-    viewTask,
-    allTasks
+    createStudent,
+    updateStudent,
+    deleteStudent,
+    viewStudent,
+    allStudents
 };

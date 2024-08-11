@@ -1,60 +1,61 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract ToDo{
+contract StudentRecords {
 
-    struct Task{
-        uint id;
+    struct Student {
+        uint prn;
         string name;
-        string date;
+        string department;
+        string marksheet;
+        string phone;
     }
 
     address owner;
-    Task task;
-    mapping(uint=>Task) tasks;//view task
-    uint taskId=1;
-    event taskCreate(uint taskId, string name);
-    event taskUpdate(uint taskId, string name);
-    event taskDelete(uint taskId);
+    mapping(uint => Student) students; // PRN => Student
+    uint public studentCount = 0;
+    event StudentCreated(uint prn, string name, string department);
+    event StudentUpdated(uint prn, string name, string department);
+    event StudentDeleted(uint prn);
 
-    modifier checkId(uint id){
-        require(id!=0 && id<taskId,"Invalid Id");
+    modifier checkPrn(uint prn) {
+        require(prn != 0 && prn <= studentCount, "Invalid PRN");
         _;
     }
-    modifier onlyOwner(){
-        require(msg.sender==owner,"Invalid Owner");
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Invalid Owner");
         _;
     }
 
-    constructor(){
-        owner=msg.sender;
+    constructor() {
+        owner = msg.sender;
     }
 
-    function createTask(string calldata _taskName, string calldata _date) public { 
-          tasks[taskId]=Task(taskId,_taskName,_date);
-          taskId++;
-          emit taskCreate(taskId,_taskName);
+    function addStudent(string calldata _name, string calldata _department, string calldata _marksheet, string calldata _phone) public {
+        studentCount++;
+        students[studentCount] = Student(studentCount, _name, _department, _marksheet, _phone);
+        emit StudentCreated(studentCount, _name, _department);
     }
 
-    function updateTask(uint _taskId,string calldata _taskName, string calldata _date) checkId(_taskId) public {
-        tasks[_taskId] = Task(_taskId,_taskName,_date);
-        emit taskUpdate(taskId,_taskName);
+    function updateStudent(uint _prn, string calldata _name, string calldata _department, string calldata _marksheet, string calldata _phone) checkPrn(_prn) public {
+        students[_prn] = Student(_prn, _name, _department, _marksheet, _phone);
+        emit StudentUpdated(_prn, _name, _department);
     }
 
-    function allTask() public view returns(Task[] memory){
-        Task[] memory taskList = new Task[](taskId-1);
-        for(uint i=0;i<taskId-1;i++){
-            taskList[i]=tasks[i+1];
+    function viewStudent(uint _prn) checkPrn(_prn) public view returns(Student memory) {
+        return students[_prn];
+    }
+
+    function allStudents() public view returns(Student[] memory) {
+        Student[] memory studentList = new Student[](studentCount);
+        for (uint i = 0; i < studentCount; i++) {
+            studentList[i] = students[i + 1];
         }
-        return taskList;
+        return studentList;
     }
 
-    function viewTask(uint _taskId) checkId(_taskId) public view returns(Task memory){
-        return tasks[_taskId];
-    }
-
-    function deleteTask(uint _taskId) checkId(_taskId) public {
-      delete tasks[_taskId];
-      emit taskDelete(_taskId);
+    function deleteStudent(uint _prn) checkPrn(_prn) public {
+        delete students[_prn];
+        emit StudentDeleted(_prn);
     }
 }
