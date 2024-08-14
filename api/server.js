@@ -1,12 +1,24 @@
 const express = require('express')
 const cors = require("cors")
 const tasks=require('./routes/routes')
+const authRoutes = require('./routes/authRoutes'); // Adjust the path as needed
 const app = express();
 
 //user-/api/ethereum/create-task -> server.js -> routes.js -> controller.js -> tasks.js
 app.use(cors())
 app.use(express.json())
 app.use('/api/ethereum',tasks)
+app.use('/api/auth', authRoutes); // Mount the auth routes
+
+
+const dotenv = require('dotenv');
+
+dotenv.config();
+const connectDB = require('./db');
+connectDB();
+
+
+
 
 const PORT=3000;
 app.listen(PORT,()=>{
