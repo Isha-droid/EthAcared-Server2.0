@@ -7,17 +7,19 @@
       
       <div class="relative p-6 flex flex-col items-center justify-center min-h-screen">
         <!-- Profile Card -->
-        <div v-if="student" class="bg-gray-800 text-white shadow-lg rounded-lg p-6 max-w-4xl w-full z-10">
+        <div v-if="student" class="bg-gray-800 text-white shadow-lg rounded-lg p-6 max-w-4xl w-full z-10 transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
           <div class="flex flex-col md:flex-row items-center">
             <!-- Profile Picture -->
-            <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-6">
+            <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-6 relative group">
               <img :src="student.profilePicture || 'https://via.placeholder.com/150'" alt="Profile Picture" class="w-32 h-32 rounded-full border-4 border-blue-600"/>
+              <!-- Hover effect -->
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-full"></div>
             </div>
             <!-- Profile Details -->
             <div class="flex-1">
-              <h1 class="text-4xl font-bold mb-2">{{ student.name }}</h1>
+              <h1 class="text-4xl font-bold mb-2 transition-transform transform hover:scale-105 duration-300">{{ student.name }}</h1>
               <p class="text-lg mb-2"><strong>Student ID:</strong> {{ student.prn }}</p>
-              <p class="text-lg mb-2"><strong>Course:</strong> {{ student.course }}</p>
+              <p class="text-lg mb-2"><strong>Course:</strong> {{ student.department }}</p>
               <p class="text-lg mb-2"><strong>Phone:</strong> {{ student.phone }}</p>
               <p class="text-lg mb-2"><strong>Email:</strong> {{ student.email }}</p>
               <p class="text-lg mb-2"><strong>Institution:</strong> {{ student.institution }}</p>
@@ -27,15 +29,15 @@
               <div class="mt-6 border-t border-gray-700 pt-4">
                 <h2 class="text-xl font-semibold mb-2">Academic Statistics</h2>
                 <div class="grid grid-cols-2 gap-4">
-                  <div class="bg-gray-700 p-4 rounded-lg">
+                  <div class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105 duration-300">
                     <h3 class="text-lg font-semibold">Completed Courses</h3>
                     <p class="text-xl">{{ student.completedCourses }}</p>
                   </div>
-                  <div class="bg-gray-700 p-4 rounded-lg">
+                  <div class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105 duration-300">
                     <h3 class="text-lg font-semibold">Current GPA</h3>
                     <p class="text-xl">{{ student.gpa }}</p>
                   </div>
-                  <div class="bg-gray-700 p-4 rounded-lg">
+                  <div class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105 duration-300">
                     <h3 class="text-lg font-semibold">Pending Assignments</h3>
                     <p class="text-xl">{{ student.pendingAssignments }}</p>
                   </div>
@@ -46,11 +48,11 @@
               <div class="mt-6 border-t border-gray-700 pt-4">
                 <h2 class="text-xl font-semibold mb-2">Recent Activities</h2>
                 <ul>
-                  <li class="bg-gray-700 p-3 rounded-lg mb-2">
+                  <li class="bg-gray-700 p-3 rounded-lg mb-2 transition-transform transform hover:scale-105 duration-300">
                     <p class="font-semibold">Submitted assignment</p>
                     <p class="text-gray-400 text-sm">Just now</p>
                   </li>
-                  <li class="bg-gray-700 p-3 rounded-lg mb-2">
+                  <li class="bg-gray-700 p-3 rounded-lg mb-2 transition-transform transform hover:scale-105 duration-300">
                     <p class="font-semibold">Completed quiz</p>
                     <p class="text-gray-400 text-sm">2 hours ago</p>
                   </li>
@@ -61,30 +63,45 @@
               <div class="mt-6 border-t border-gray-700 pt-4">
                 <h2 class="text-xl font-semibold mb-2">Connect with me</h2>
                 <div class="flex space-x-4">
-                  <a href="https://twitter.com/yourprofile" target="_blank" class="text-blue-500 hover:text-blue-600">
-                    <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M23 3a10.9 10.9 0 0 1-3.1.9 4.48 4.48 0 0 0 1.9-2.5 9.02 9.02 0 0 1-2.9 1.1A4.44 4.44 0 0 0 16 2a4.48 4.48 0 0 0-4.5 4.5c0 .35.05.7.1 1A12.7 12.7 0 0 1 2 3a4.48 4.48 0 0 0 1.5 6 4.4 4.4 0 0 1-2-.6v.1c0 2.2 1.5 4.1 3.5 4.5a4.5 4.5 0 0 1-2 .1 4.46 4.46 0 0 0 4.2 3.1A8.94 8.94 0 0 1 0 19a12.62 12.62 0 0 0 6.9 2c8.2 0 12.7-6.8 12.7-12.7v-.6a9.1 9.1 0 0 0 2.3-2.3z" />
-                    </svg>
-                  </a>
-                  <a href="https://github.com/yourprofile" target="_blank" class="text-gray-400 hover:text-gray-300">
-                    <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.5 2.91 8.33 6.94 9.68.5.09.68-.22.68-.49v-1.8c-2.83.61-3.42-1.36-3.42-1.36-.46-1.17-1.13-1.48-1.13-1.48-.92-.63.07-.62.07-.62 1.02.07 1.55 1.05 1.55 1.05.91 1.57 2.39 1.11 2.98.85.09-.66.36-1.11.65-1.36-2.32-.26-4.77-1.16-4.77-5.17 0-1.14.41-2.07 1.08-2.8-.11-.26-.47-1.31.1-2.72 0 0 .88-.28 2.88 1.08.84-.23 1.74-.35 2.64-.36.9.01 1.8.12 2.64.36 2-1.36 2.88-1.08 2.88-1.08.58 1.41.21 2.46.1 2.72.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.91-4.78 5.17.37.31.69.92.69 1.85v2.72c0 .27.17.58.68.49C21.09 20.33 24 16.5 24 12c0-5.52-4.48-10-10-10z" />
-                    </svg>
-                  </a>
-                  <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-blue-700 hover:text-blue-800">
-                    <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M22.23 22.23h-4.54v-6.14c0-1.46-.03-3.33-2.03-3.33-2.03 0-2.34 1.59-2.34 3.23v6.25H8.11V9.09h4.36v1.69h.06c.62-1.17 2.13-2.4 4.38-2.4 4.68 0 5.54 3.09 5.54 7.1v6.35zm-14.38-14.43c-1.4 0-2.55-1.14-2.55-2.55s1.14-2.55 2.55-2.55c1.4 0 2.55 1.14 2.55 2.55s-1.14 2.55-2.55 2.55zm-1.47 14.43h2.96v-6.14c0-1.46-.03-3.33-2.03-3.33-2.03 0-2.34 1.59-2.34 3.23v6.25h2.96zM1.3 22.23h2.95v-13.14H1.3v13.14zm1.48-15.28c-.96 0-1.76-.78-1.76-1.76s.79-1.76 1.76-1.76c.97 0 1.76.78 1.76 1.76s-.79 1.76-1.76 1.76zm-2.1 15.28h2.96v-6.14c0-1.46-.03-3.33-2.03-3.33-2.03 0-2.34 1.59-2.34 3.23v6.25H1.3z"/>
-                    </svg>
-                  </a>
-                </div>
+                    <!-- Twitter Icon -->
+                    <a href="https://twitter.com/yourprofile" target="_blank" class="text-blue-500 hover:text-blue-600 transition-colors duration-300">
+                      <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.611 1.794-1.574 2.163-2.724-.949.56-2.002.97-3.127 1.188-.896-.952-2.173-1.548-3.591-1.548-2.713 0-4.915 2.202-4.915 4.917 0 .39.044.765.128 1.124-4.083-.205-7.702-2.16-10.126-5.134-.423.724-.666 1.561-.666 2.457 0 1.697.863 3.191 2.175 4.067-.802-.026-1.556-.246-2.217-.616v.062c0 2.366 1.684 4.342 3.918 4.785-.41.111-.842.171-1.287.171-.315 0-.623-.03-.922-.086.623 1.943 2.432 3.357 4.576 3.397-1.676 1.311-3.786 2.092-6.081 2.092-.395 0-.787-.023-1.174-.068 2.173 1.394 4.75 2.209 7.548 2.209 9.057 0 14.01-7.496 14.01-13.986 0-.21 0-.423-.015-.633.961-.695 1.8-1.56 2.465-2.548l-.047-.02z"/>
+                      </svg>
+                    </a>
+                    
+                    <!-- GitHub Icon -->
+                    <a href="https://github.com/yourprofile" target="_blank" class="text-gray-400 hover:text-gray-300 transition-colors duration-300">
+                      <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.304 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.415-4.042-1.415-.546-1.387-1.332-1.756-1.332-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.304 3.495.998.108-.775.418-1.304.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.469-2.382 1.236-3.221-.124-.304-.536-1.527.117-3.176 0 0 1.01-.322 3.3 1.23.957-.266 1.983-.398 3.005-.404 1.02.006 2.048.138 3.006.404 2.287-1.552 3.295-1.23 3.295-1.23.655 1.649.243 2.872.12 3.176.77.839 1.233 1.911 1.233 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.815 1.104.815 2.229 0 1.609-.014 2.908-.014 3.307 0 .323.215.694.825.576 4.765-1.588 8.2-6.084 8.2-11.384 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    </a>
+                    
+                    <!-- LinkedIn Icon -->
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-blue-700 hover:text-blue-800 transition-colors duration-300">
+                      <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19.616 3h-15.232c-1.402 0-2.384.982-2.384 2.383v15.233c0 1.402.982 2.384 2.384 2.384h15.232c1.401 0 2.384-.982 2.384-2.384v-15.232c0-1.401-.983-2.384-2.384-2.384zm-11.616 18h-3v-9h3v9zm-1.5-10.199c-.966 0-1.75-.785-1.75-1.75s.784-1.751 1.75-1.751c.965 0 1.75.786 1.75 1.751s-.785 1.75-1.75 1.75zm11.5 10.199h-3v-4.503c0-1.075-.02-2.46-1.5-2.46-1.503 0-1.733 1.172-1.733 2.381v4.582h-3v-9h2.883v1.231h.042c.402-.761 1.384-1.56 2.847-1.56 3.045 0 3.607 2.003 3.607 4.608v4.721z"/>
+                      </svg>
+                    </a>
+                  </div>
+                  
               </div>
+  
+              <!-- Centered Plus Button -->
+              <div class="flex justify-center ">
+                <div @click="updateStudent(student)" class="mt-8">
+                    <button class="px-6 py-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-transform transform hover:scale-110 duration-300 flex items-center justify-center">
+                      Update
+                      <svg class="w-6 h-6 ml-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+              </div>
+  
             </div>
           </div>
-        </div>
-  
-        <!-- No Profile Found Message -->
-        <div v-else class="text-center text-gray-400 z-10">
-          <p class="text-lg">No profile found</p>
         </div>
       </div>
     </div>
@@ -94,6 +111,7 @@
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
   
+  import { useRouter } from 'vue-router';
   const student = ref(null);
   
   onMounted(async () => {
@@ -110,6 +128,20 @@
       student.value = null;
     }
   });
+  
+  const router = useRouter();
+  
+  const updateStudent = (student) => {
+    router.push({
+      name: 'update-student',
+      params: {
+        studentId: student.prn
+      },
+      query: {
+        student: JSON.stringify(student)
+      }
+    });
+  };
   </script>
   
   <style scoped>
