@@ -1,5 +1,68 @@
 [
 	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "department",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marksheet",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StudentRecords.StudentInfo",
+				"name": "studentInfo",
+				"type": "tuple"
+			}
+		],
+		"name": "addStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_prn",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -70,27 +133,54 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_prn",
+				"type": "uint256"
 			},
 			{
-				"internalType": "string",
-				"name": "_department",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_marksheet",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_phone",
-				"type": "string"
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "department",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marksheet",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StudentRecords.StudentInfo",
+				"name": "studentInfo",
+				"type": "tuple"
 			}
 		],
-		"name": "addStudent",
+		"name": "updateStudent",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -125,6 +215,21 @@
 						"internalType": "string",
 						"name": "phone",
 						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
+						"type": "string"
 					}
 				],
 				"internalType": "struct StudentRecords.Student[]",
@@ -138,14 +243,75 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_prn",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "_department",
+				"type": "string"
 			}
 		],
-		"name": "deleteStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "getStudentsByDepartment",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "prn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "department",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marksheet",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StudentRecords.Student[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -159,39 +325,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_prn",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_department",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_marksheet",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_phone",
-				"type": "string"
-			}
-		],
-		"name": "updateStudent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -229,6 +362,82 @@
 					{
 						"internalType": "string",
 						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StudentRecords.Student",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_email",
+				"type": "string"
+			}
+		],
+		"name": "viewStudentByEmail",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "prn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "department",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marksheet",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "homeAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "dob",
 						"type": "string"
 					}
 				],
