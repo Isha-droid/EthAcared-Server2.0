@@ -9,6 +9,7 @@ import ProfileMenu from '../components/ProfileMenu.vue';
 import Dashboard from '../components/Dashboard.vue';
 import ViewStudents from '../components/ViewStudents.vue';
 import DepartmentStudents from '../components/DepartmentStudents.vue';
+import ViewProfile from '../components/ViewProfile.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -21,7 +22,9 @@ const routes = [
   { path: '/view-all-students', component: ViewStudents },
   { path: '/profile', component: ProfileMenu },
   { path: '/dashboard', component: Dashboard },
-  { path: '/department-students', component: DepartmentStudents }
+  { path: '/department-students', component: DepartmentStudents },
+  { path: '/view-profile', component: ViewProfile },
+
 
 ];
 

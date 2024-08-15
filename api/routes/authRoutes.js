@@ -61,7 +61,6 @@ router.get('/admin', verifyToken, requireRole('admin'), (req, res) => {
   res.status(200).json({ message: 'Welcome to the admin dashboard!' });
 });
 
-// Route for user registration
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   console.log("login route called");
@@ -82,7 +81,12 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id },process.env.JWT_SECRET, { expiresIn: "1h" });
+    // Include role and email in the JWT payload
+    const token = jwt.sign(
+      { userId: user._id, role: user.role, email: user.email }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: "1h" }
+    );
 
     // Return token and user data
     console.log(user);
@@ -92,7 +96,6 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
 
 
 module.exports = router;

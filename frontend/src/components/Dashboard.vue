@@ -4,8 +4,8 @@
         {{ isAdmin ? 'Admin Dashboard' : 'User Dashboard' }}
       </h1>
   
+      <!-- Admin Actions -->
       <div v-if="isAdmin" class="space-y-6">
-        <h2 class="text-3xl font-semibold">Admin Actions</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <a href="/create-student" class="bg-green-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-green-700 transition duration-300 ease-in-out flex items-center justify-between">
             <span>Create Student</span>
@@ -25,26 +25,26 @@
               <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+          <a href="/department-students" class="bg-indigo-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out flex items-center justify-between">
+            <span>Department Students</span>
+            <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
   
+      <!-- User Actions -->
       <div v-else class="space-y-6">
-        <h2 class="text-3xl font-semibold">User Actions</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="/view-student" class="bg-blue-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out flex items-center justify-between">
-            <span>View Student</span>
-            <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="/update-student" class="bg-yellow-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-yellow-700 transition duration-300 ease-in-out flex items-center justify-between">
-            <span>Update Student</span>
-            <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="/profile" class="bg-blue-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out flex items-center justify-between">
+          <a href="/view-profile" class="bg-blue-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out flex items-center justify-between">
             <span>View Profile</span>
+            <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="/update-profile" class="bg-yellow-600 px-6 py-3 text-white rounded-lg shadow-lg hover:bg-yellow-700 transition duration-300 ease-in-out flex items-center justify-between">
+            <span>Update Profile</span>
             <svg class="w-6 h-6 text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -60,9 +60,8 @@
   // Safely fetch and parse user data from local storage
   let userRole = '';
   try {
-    const user = localStorage.getItem('user');
-    userRole = user || '';
-    alert(user)
+    const user =localStorage.getItem('user') ;
+    userRole = user;
   } catch (error) {
     console.error('Failed to parse user data:', error);
   }
@@ -112,6 +111,14 @@
   
   .bg-yellow-700 {
     background-color: #b7791f;
+  }
+  
+  .bg-indigo-600 {
+    background-color: #4c51bf;
+  }
+  
+  .bg-indigo-700 {
+    background-color: #434190;
   }
   </style>
   
