@@ -8,21 +8,20 @@ import DeleteStudent from '../components/DeleteStudent.vue';
 import ProfileMenu from '../components/ProfileMenu.vue';
 import Dashboard from '../components/Dashboard.vue';
 import ViewStudents from '../components/ViewStudents.vue';
-
-
+import DepartmentStudents from '../components/DepartmentStudents.vue';
 
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
   { path: '/create-student', component: CreateStudent },
-  { path: '/update-student', component: UpdateStudent },
+  { path: '/update-student/:studentId?', name: 'update-student', component: UpdateStudent, props: route => ({ student: JSON.parse(route.query.student || '{}') }) },
   { path: '/delete-student', component: DeleteStudent },
   { path: '/delete-student/:prn', name: 'delete-student', component: DeleteStudent, props: true },
   { path: '/view-all-students', component: ViewStudents },
   { path: '/profile', component: ProfileMenu },
-  { path: '/dashboard', component: Dashboard }
-
+  { path: '/dashboard', component: Dashboard },
+  { path: '/department-students', component: DepartmentStudents }
 
 ];
 

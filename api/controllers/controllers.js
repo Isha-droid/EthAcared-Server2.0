@@ -214,13 +214,23 @@ const getStudentsByDepartment = async (req, res) => {
     }
 
     try {
+        // Fetch students from the contract
         const students = await contract.methods.getStudentsByDepartment(department).call();
         
-        // Convert BigInt values to strings if necessary
-        const studentsStringified = students.map(student => ({
-            ...student,
-            prn: student.prn.toString(), // Convert PRN to string
-        }));
+        // Ensure all `BigInt` values are converted to strings
+        const studentsStringified = students.map(student => {
+            // Assuming `student` is an object with `BigInt` values
+            const studentCopy = { ...student };
+            
+            // Convert any `BigInt` properties to strings
+            for (const key in studentCopy) {
+                if (typeof studentCopy[key] === 'bigint') {
+                    studentCopy[key] = studentCopy[key].toString();
+                }
+            }
+            
+            return studentCopy;
+        });
 
         res.status(200).json({ status: 200, students: studentsStringified, message: "Students retrieved successfully" });
     } catch (error) {
@@ -228,6 +238,7 @@ const getStudentsByDepartment = async (req, res) => {
         res.status(500).json({ status: 500, message: "Failed to get students by department", error: error.message });
     }
 };
+
 
 
 const getProfileByEmail = async (req, res) => {
