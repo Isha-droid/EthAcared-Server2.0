@@ -217,12 +217,9 @@ const getStudentsByDepartment = async (req, res) => {
         // Fetch students from the contract
         const students = await contract.methods.getStudentsByDepartment(department).call();
         
-        // Ensure all `BigInt` values are converted to strings
         const studentsStringified = students.map(student => {
-            // Assuming `student` is an object with `BigInt` values
             const studentCopy = { ...student };
             
-            // Convert any `BigInt` properties to strings
             for (const key in studentCopy) {
                 if (typeof studentCopy[key] === 'bigint') {
                     studentCopy[key] = studentCopy[key].toString();

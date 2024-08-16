@@ -10,6 +10,7 @@ import Dashboard from '../components/Dashboard.vue';
 import ViewStudents from '../components/ViewStudents.vue';
 import DepartmentStudents from '../components/DepartmentStudents.vue';
 import ViewProfile from '../components/ViewProfile.vue';
+import VerifyDocument from '../components/VerifyDocument.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -24,6 +25,8 @@ const routes = [
   { path: '/dashboard', component: Dashboard },
   { path: '/department-students', component: DepartmentStudents },
   { path: '/view-profile', component: ViewProfile },
+  { path: '/verify-document', component: VerifyDocument },
+
 
 
 ];

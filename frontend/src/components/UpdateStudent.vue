@@ -39,15 +39,15 @@
 
     <div v-if="updateResult" class="mt-6 p-4 bg-gray-700 rounded-lg">
       <h3 class="text-lg font-semibold">Update Result</h3>
-      <p><strong>Status:</strong> {{ updateResult.status === '1' ? 'Success' : 'Failed' }}</p>
-      <p><strong>Transaction Hash:</strong> {{ updateResult.transactionHash }}</p>
+      <!-- <p><strong>Status:</strong> {{ updateResult.status === '1' ? 'Success' : 'Failed' }}</p> -->
+      <!-- <p><strong>Transaction Hash:</strong> {{ updateResult.transactionHash }}</p> -->
       <p><strong>Student ID:</strong> {{ updateResult.studentId }}</p>
       <p><strong>Name:</strong> {{ updateResult.name }}</p>
       <p><strong>Department:</strong> {{ updateResult.department }}</p>
       <p><strong>Email:</strong> {{ updateResult.email }}</p>
       <p><strong>Phone:</strong> {{ updateResult.phone }}</p>
       <p><strong>Home Address:</strong> {{ updateResult.homeAddress }}</p>
-      <p><strong>Marks:</strong> {{ updateResult.marks }}</p>
+      <p><strong>Marks:</strong> {{ updateResult.marksheet }}</p>
       <p><strong>Date of Birth:</strong> {{ updateResult.dob }}</p>
     </div>
   </div>
